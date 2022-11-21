@@ -4,3 +4,6 @@ A standalone service for integrating sample and patient data for further seconda
 List of the most elemnetal features:
  - __Persisting exported data__
  - __Creating an audit trail__
+ - __Pseudonymization__
+ - __Creation of peristent identificators__
+ - __Harmonization__
