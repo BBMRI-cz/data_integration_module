@@ -1,7 +1,9 @@
 package main
 
-import "fmt"
+import (
+	"github.com/data_integration_module/parser/pkg"
+)
 
 func main() {
-	fmt.Println("HelloWorld")
+	pkg.ReadXMLFile("/Users/radot/Projects/data_integration_module/parser/test/data/mmci_1.xml")
 }
