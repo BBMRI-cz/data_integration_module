@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <!--These are completely synthetic data with the same structure-->
-<patient xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" biobank="MOU" consent="true" id="9999" month="--12"
+<patient xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" biobank="MOU" consent="true" id="9999" month="--01"
          sex="female" xmlns="http://www.bbmri.cz/schemas/biobank/data"
          xsi:noNamespaceSchemaLocation="exportNIS.xsd" year="1999">
     <LTS>
@@ -23,7 +23,7 @@
             <morphology>8500/32</morphology>
             <diagnosis>C61</diagnosis>
             <cutTime>2032-11-23T09:40:00</cutTime>
-            <freezeTime>2032-11-23T09:08:00</freezeTime>
+            <freezeTime>2032-11-23T10:08:00</freezeTime>
             <retrieved>operational</retrieved>
         </tissue>
         <tissue number="888" sampleId="BBM:2032:888:53" year="2032">
@@ -34,7 +34,7 @@
             <morphology>8500/32</morphology>
             <diagnosis>C509</diagnosis>
             <cutTime>2032-11-23T09:40:00</cutTime>
-            <freezeTime>2032-11-23T09:08:00</freezeTime>
+            <freezeTime>2032-11-23T11:08:00</freezeTime>
             <retrieved>operational</retrieved>
         </tissue>
         <tissue number="888" sampleId="BBM:2032:888:54" year="2032">
@@ -45,7 +45,7 @@
             <morphology>8500/32</morphology>
             <diagnosis>C549</diagnosis>
             <cutTime>2032-11-23T09:40:00</cutTime>
-            <freezeTime>2032-11-23T09:08:00</freezeTime>
+            <freezeTime>2032-11-23T11:08:00</freezeTime>
             <retrieved>operational</retrieved>
         </tissue>
     </LTS>
