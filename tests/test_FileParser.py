@@ -1,5 +1,7 @@
+import datetime
 import logging
 import unittest
+from datetime import datetime
 
 from database.biobank_record import BiobankRecord
 from parser.file_parser import FileParser
@@ -22,3 +24,7 @@ class FileParserTestCase(unittest.TestCase):
     def test_ParseXMLFiles(self):
         for biobankRecord in self._fileParser.parseXMLFilesInDir():
             self.assertIsInstance(biobankRecord, BiobankRecord)
+
+    def test_FileCreationTimeStamp(self):
+        for biobankRecord in self._fileParser.parseXMLFilesInDir():
+            self.assertIsInstance(biobankRecord.bims_export_time, datetime)

@@ -2,9 +2,9 @@ import datetime
 
 
 class BiobankRecord:
-    def __init__(self, record: dict, parsing_time: datetime.datetime):
+    def __init__(self, record: dict, bims_export_time: datetime.datetime):
         self.record = record
-        self.parsing_time = parsing_time
+        self.bims_export_time = bims_export_time
 
     @property
     def record(self):
