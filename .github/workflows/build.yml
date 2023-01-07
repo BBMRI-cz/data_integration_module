@@ -1,0 +1,30 @@
+name: Python Package using Conda
+
+on:
+  schedule:
+    - cron: '0 10 * * *' # every day at 10am
+  push:
+    branches:
+      - master
+    tags:
+      - 'v*.*.*'
+  pull_request:
+    branches:
+      - master
+
+jobs:
+  build-linux:
+    runs-on: ubuntu-latest
+    strategy:
+      max-parallel: 5
+
+    steps:
+    - uses: actions/checkout@v3
+    
+    - name: Set up Python 3.10
+      uses: actions/setup-python@v3
+      with:
+        python-version: '3.10'
+        
+    - name: Test with pytest
+      run: pytest
