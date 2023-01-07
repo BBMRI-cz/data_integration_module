@@ -1,5 +1,6 @@
 import datetime
 import logging
+import os
 import unittest
 from datetime import datetime
 
@@ -13,7 +14,8 @@ class FileParserTestCase(unittest.TestCase):
 
     @classmethod
     def setUpClass(cls) -> None:
-        cls._fileParser = FileParser()
+        dir_path = os.path.dirname(__file__) + "/dummy_files"
+        cls._fileParser = FileParser(dir_path)
 
     def test_ClassInit(self):
         self.assertIsInstance(self._fileParser, FileParser)

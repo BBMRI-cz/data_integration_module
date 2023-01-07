@@ -15,7 +15,9 @@ def isValidFileType(dir_entry):
 
 
 class FileParser:
-    dir_path = os.path.dirname(__file__) + "/../tests/dummy_files"
+    def __init__(self, dir_path):
+        self.dir_path = dir_path
+        log.info("Initializing FileParser with directory: {dir}".format(dir=dir_path))
 
     def foundValidFiles(self) -> bool:
         count = 0
