@@ -15,7 +15,7 @@ def isValidFileType(dir_entry):
 
 
 class FileParser:
-    dir_path = "/Users/radot/Projects/data_integration_module/tests/dummy_files"
+    dir_path = os.path.dirname(__file__) + "/../tests/dummy_files"
 
     def foundValidFiles(self) -> bool:
         count = 0
