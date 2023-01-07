@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8" ?>
-<!--These are completely synthetic data with the same structure-->
+<!--These are completely synthetic dummy_files with the same structure-->
 <patient xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" biobank="MOU" consent="true" id="9999" month="--01"
          sex="female" xmlns="http://www.bbmri.cz/schemas/biobank/data"
          xsi:noNamespaceSchemaLocation="exportNIS.xsd" year="1999">

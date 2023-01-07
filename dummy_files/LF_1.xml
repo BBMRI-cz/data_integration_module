@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!--These are completely synthetic data with the same structure-->
+<!--These are completely synthetic dummy_files with the same structure-->
 <patient id="2347822"
          consent="true" year="2099" sex="female" biobank="1LF_UK" xmlns="http://www.bbmri.cz/schemas/biobank/data_v2">
     <sample id="1LF_UK-9999-1-PK" year="2045" number="1111">
