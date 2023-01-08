@@ -10,6 +10,7 @@ from database.biobank_record_repository import BiobankRecordRepository
 from database.database import Database
 
 biobankRecord = BiobankRecordDTO(
+    identifier="test1",
     record={"a": "b"},
     bims_export_time=datetime.datetime.now()
 )

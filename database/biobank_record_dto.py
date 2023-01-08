@@ -2,7 +2,8 @@ import datetime
 
 
 class BiobankRecordDTO:
-    def __init__(self, record: dict, bims_export_time: datetime.datetime):
+    def __init__(self, identifier: str, record: dict, bims_export_time: datetime.datetime):
+        self._id = identifier
         if record == {}:
             raise ValueError("Record is empty")
         self._record = record
@@ -11,6 +12,10 @@ class BiobankRecordDTO:
     @property
     def record(self):
         return self._record
+
+    @property
+    def id(self):
+        return self._id
 
     @record.setter
     def record(self, value):

@@ -36,6 +36,7 @@ class FileParser:
                     log.debug("Parsing file: {fileName}".format(fileName=dirEntry.name))
                     try:
                         yield BiobankRecordDTO(
+                            dirEntry.name.split(".")[0],
                             xmltodict.parse(xml_file.read()),
                             fileCreationTimestamp
                         )
