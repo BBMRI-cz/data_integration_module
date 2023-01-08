@@ -17,6 +17,7 @@
         <list>
           <option value="tests.test_database.DatabaseTests._db" />
           <option value="tests.test_database.DatabaseTests._postgresContainer" />
+          <option value="tests.test_BiobankRecordRepository.MyTestCase.*" />
         </list>
       </option>
     </inspection_tool>

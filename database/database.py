@@ -2,15 +2,22 @@ import logging
 import os
 
 import psycopg
+from psycopg.errors import DuplicateTable
 
 log = logging.getLogger(__name__)
 schema_file = os.path.dirname(__file__) + "/schema.sql"
 
 
 class Database:
-    def __init__(self, conn_info):
-        self._conn = psycopg.connect(conn_info)
+    connectionUrl = None
+
+    def __init__(self):
+        if self.connectionUrl is None:
+            raise ValueError("Database connection URL not specified!")
+        self._conn = psycopg.connect(Database.connectionUrl)
         self._cursor = self._conn.cursor()
+        self.connection.autocommit = True
+        self.__initSchema()
 
     def __exit__(self, exc_type, exc_val, exc_tb):
         self.close()
@@ -41,12 +48,14 @@ class Database:
         return self.query("SELECT 1")
 
     def execute(self, sql, params=None):
-        self.cursor.execute(sql, params or ())
+        return self.cursor.execute(sql, params or ())
 
     def query(self, sql, params=None):
         self.cursor.execute(sql, params or ())
         return self.fetchall()
 
-    def initSchema(self):
-        log.info("Initializing database schema.")
-        self.execute(open(schema_file, "r").read())
+    def __initSchema(self):
+        try:
+            self.execute(open(schema_file, "r").read())
+        except DuplicateTable:
+            log.info("Database was already initialized")
