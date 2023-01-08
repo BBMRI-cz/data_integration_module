@@ -5,7 +5,7 @@ from pyexpat import ExpatError
 
 import xmltodict
 
-from database.biobank_record import BiobankRecord
+from database.biobank_record_dto import BiobankRecordDTO
 
 log = logging.getLogger(__name__)
 
@@ -28,14 +28,14 @@ class FileParser:
                  .format(numOfFiles=count, directory=self.dir_path))
         return count > 0
 
-    def parseXMLFilesInDir(self) -> [BiobankRecord]:
+    def parseXMLFilesInDir(self) -> [BiobankRecordDTO]:
         for dirEntry in os.scandir(self.dir_path):
             if isValidFileType(dirEntry):
                 fileCreationTimestamp = datetime.datetime.fromtimestamp(os.path.getctime(dirEntry))
                 with open(dirEntry) as xml_file:
                     log.debug("Parsing file: {fileName}".format(fileName=dirEntry.name))
                     try:
-                        yield BiobankRecord(
+                        yield BiobankRecordDTO(
                             xmltodict.parse(xml_file.read()),
                             fileCreationTimestamp
                         )

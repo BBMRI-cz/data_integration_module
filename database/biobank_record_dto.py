@@ -1,7 +1,7 @@
 import datetime
 
 
-class BiobankRecord:
+class BiobankRecordDTO:
     def __init__(self, record: dict, bims_export_time: datetime.datetime):
         self.record = record
         self.bims_export_time = bims_export_time
