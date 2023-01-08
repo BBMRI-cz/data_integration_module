@@ -1,8 +1,10 @@
 import logging
+import os
 
 import psycopg
 
 log = logging.getLogger(__name__)
+schema_file = os.path.dirname(__file__) + "/schema.sql"
 
 
 class Database:
@@ -47,4 +49,4 @@ class Database:
 
     def initSchema(self):
         log.info("Initializing database schema.")
-        self.execute(open("/Users/radot/Projects/data_integration_module/database/schema.sql", "r").read())
+        self.execute(open(schema_file, "r").read())

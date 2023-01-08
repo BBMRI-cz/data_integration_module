@@ -1,6 +1,6 @@
 create table public.biobank_record
 (
-    id            char not null
+    id CHARACTER VARYING(255) not null
         constraint biobank_record_pk
             primary key,
     record        json not null,
