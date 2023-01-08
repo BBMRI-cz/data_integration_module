@@ -5,8 +5,6 @@ import psycopg
 from database.biobank_record_dto import BiobankRecordDTO
 from database.database import Database
 
-insert_record = "INSERT INTO public.biobank_record VALUES ('idk', %s, %s, %s);"
-
 
 class BiobankRecordRepository:
 
@@ -23,3 +21,10 @@ class BiobankRecordRepository:
                                                     biobank_record_dto.bims_export_time))
         except psycopg.errors.UniqueViolation as e:
             raise e
+
+    def deleteAll(self):
+        self._db.execute(delete_all_rows)
+
+
+insert_record = "INSERT INTO public.biobank_record VALUES ('idk', %s, %s, %s);"
+delete_all_rows = 'DELETE FROM biobank_record'

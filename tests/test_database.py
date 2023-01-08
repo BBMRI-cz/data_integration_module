@@ -4,9 +4,6 @@ from testcontainers.postgres import PostgresContainer
 
 from database.database import Database
 
-create_table = 'CREATE TABLE test (id integer);'
-insert_test = 'INSERT INTO test VALUES (1);'
-
 
 class DatabaseTests(unittest.TestCase):
 
@@ -31,11 +28,19 @@ class DatabaseTests(unittest.TestCase):
 
     def test_executeCreateTable(self):
         self.assertTrue(self._db.execute(create_table))
+        self._db.execute(drop_table)
 
-    def test_executeInsertIntoTestTable(self):
+    def test_CreateAndInsertIntoTestTable(self):
+        self._db.execute(create_table)
         self.assertTrue(self._db.execute(insert_test))
+        self._db.execute(drop_table)
 
     @classmethod
     def tearDownClass(cls) -> None:
         cls._db.close()
         cls._postgresContainer.stop()
+
+
+create_table = 'CREATE TABLE test (id integer);'
+drop_table = 'DROP TABLE test;'
+insert_test = 'INSERT INTO test VALUES (1);'

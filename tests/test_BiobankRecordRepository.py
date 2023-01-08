@@ -1,6 +1,7 @@
 import datetime
 import unittest
 
+import pytest
 from psycopg.errors import UniqueViolation
 from testcontainers.postgres import PostgresContainer
 
@@ -23,11 +24,17 @@ class MyTestCase(unittest.TestCase):
         Database.connectionUrl = url
         cls._biobankRecordRepository = BiobankRecordRepository()
 
+    @pytest.fixture(autouse=True)
+    def runBeforeAndAfterEachTest(self):
+        yield
+        self._biobankRecordRepository.deleteAll()
+
     def test_insertOneRow(self):
         result = self._biobankRecordRepository.insert(biobankRecord)
         self.assertTrue(result)
 
     def test_insertSameDTOTwiceRaisesError(self):
+        self._biobankRecordRepository.insert(biobankRecord)
         self.assertRaises(UniqueViolation, lambda: self._biobankRecordRepository.insert(biobankRecord))
 
     def test_getAllOnEmptyTable(self):
