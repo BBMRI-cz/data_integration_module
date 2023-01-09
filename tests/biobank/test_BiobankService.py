@@ -15,8 +15,8 @@ class TestBiobankService(unittest.TestCase):
         cls._postgresContainer = PostgresContainer("postgres:14", dbname="biobank")
         cls._postgresContainer.start()
         url = cls._postgresContainer.get_connection_url().split("+")[1].replace("psycopg2", "postgresql")
-        Database.connectionUrl = url
-        biobankRepository = BiobankRecordRepository(Database())
+        db = Database(url)
+        biobankRepository = BiobankRecordRepository(db)
         cls._biobankService = BiobankService(biobankRepository)
 
     def test_saveFilesIntoDBInJson(self):

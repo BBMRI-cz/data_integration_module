@@ -12,8 +12,7 @@ class DatabaseTests(unittest.TestCase):
         cls._postgresContainer = PostgresContainer("postgres:14", dbname="biobank")
         cls._postgresContainer.start()
         url = cls._postgresContainer.get_connection_url().split("+")[1].replace("psycopg2", "postgresql")
-        Database.connectionUrl = url
-        cls._db = Database()
+        cls._db = Database(url)
 
     def test_ConnectionIsAlive(self):
         self.assertTrue(self._db.isAlive())

@@ -22,8 +22,8 @@ class TestBiobankRecordRepository(unittest.TestCase):
         cls._postgresContainer = PostgresContainer("postgres:14", dbname="biobank")
         cls._postgresContainer.start()
         url = cls._postgresContainer.get_connection_url().split("+")[1].replace("psycopg2", "postgresql")
-        Database.connectionUrl = url
-        cls._biobankRecordRepository = BiobankRecordRepository(Database())
+        db = Database(url)
+        cls._biobankRecordRepository = BiobankRecordRepository(db)
 
     @pytest.fixture(autouse=True)
     def runBeforeAndAfterEachTest(self):

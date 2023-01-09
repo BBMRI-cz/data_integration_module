@@ -9,12 +9,9 @@ schema_file = os.path.dirname(__file__) + "/schema.sql"
 
 
 class Database:
-    connectionUrl = None
 
-    def __init__(self):
-        if self.connectionUrl is None:
-            raise ValueError("Database connection URL not specified!")
-        self._conn = psycopg.connect(Database.connectionUrl)
+    def __init__(self, connection_url: str):
+        self._conn = psycopg.connect(connection_url)
         self._cursor = self._conn.cursor()
         self.connection.autocommit = True
         self.__initSchema()
