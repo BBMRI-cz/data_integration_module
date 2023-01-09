@@ -5,8 +5,8 @@ import pytest
 from psycopg.errors import UniqueViolation
 from testcontainers.postgres import PostgresContainer
 
-from database.biobank_record_dto import BiobankRecordDTO
-from database.biobank_record_repository import BiobankRecordRepository
+from biobank.biobank_record_dto import BiobankRecordDTO
+from biobank.biobank_record_repository import BiobankRecordRepository
 from database.database import Database
 
 biobankRecord = BiobankRecordDTO(

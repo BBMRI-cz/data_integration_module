@@ -1,11 +1,10 @@
 import os
 import unittest
-from unittest import mock
 
 from testcontainers.postgres import PostgresContainer
 
 from biobank.biobank_service import BiobankService
-from database.biobank_record_repository import BiobankRecordRepository
+from biobank.biobank_record_repository import BiobankRecordRepository
 from database.database import Database
 
 

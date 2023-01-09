@@ -4,7 +4,7 @@ import unittest
 from datetime import datetime
 
 from util.logger import CustomLogger
-from database.biobank_record_dto import BiobankRecordDTO
+from biobank.biobank_record_dto import BiobankRecordDTO
 from parser.file_parser import FileParser
 
 

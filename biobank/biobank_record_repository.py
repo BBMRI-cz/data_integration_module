@@ -2,7 +2,7 @@ import json
 
 from psycopg.errors import UniqueViolation
 
-from database.biobank_record_dto import BiobankRecordDTO
+from biobank.biobank_record_dto import BiobankRecordDTO
 from database.database import Database
 
 

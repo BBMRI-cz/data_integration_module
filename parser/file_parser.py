@@ -1,12 +1,11 @@
 import datetime
-import logging
 import os
 from pyexpat import ExpatError
 
 import xmltodict
 
 from util.logger import CustomLogger
-from database.biobank_record_dto import BiobankRecordDTO
+from biobank.biobank_record_dto import BiobankRecordDTO
 
 log = CustomLogger(__name__)
 

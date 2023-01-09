@@ -1,8 +1,6 @@
-import os
-
 from psycopg import Cursor
 
-from database.biobank_record_repository import BiobankRecordRepository
+from biobank.biobank_record_repository import BiobankRecordRepository
 from parser.file_parser import FileParser
 from util.logger import CustomLogger
 

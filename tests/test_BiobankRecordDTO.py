@@ -1,7 +1,7 @@
 import datetime
 import unittest
 
-from database.biobank_record_dto import BiobankRecordDTO
+from biobank.biobank_record_dto import BiobankRecordDTO
 
 
 class TestBiobankRecord(unittest.TestCase):
