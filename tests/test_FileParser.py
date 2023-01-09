@@ -1,13 +1,14 @@
 import datetime
-import logging
 import os
 import unittest
 from datetime import datetime
 
+from util.logger import CustomLogger
 from database.biobank_record_dto import BiobankRecordDTO
 from parser.file_parser import FileParser
 
-log = logging.getLogger(__name__)
+
+log = CustomLogger(__name__)
 
 
 class FileParserTestCase(unittest.TestCase):

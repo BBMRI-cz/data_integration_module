@@ -5,9 +5,10 @@ from pyexpat import ExpatError
 
 import xmltodict
 
+from util.logger import CustomLogger
 from database.biobank_record_dto import BiobankRecordDTO
 
-log = logging.getLogger(__name__)
+log = CustomLogger(__name__)
 
 
 def isValidFileType(dir_entry):

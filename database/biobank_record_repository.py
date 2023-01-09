@@ -1,6 +1,6 @@
 import json
 
-import psycopg
+from psycopg.errors import UniqueViolation
 
 from database.biobank_record_dto import BiobankRecordDTO
 from database.database import Database
@@ -20,7 +20,7 @@ class BiobankRecordRepository:
                                                     json.dumps(biobank_record_dto.record),
                                                     biobank_record_dto.bims_export_time,
                                                     biobank_record_dto.bims_export_time))
-        except psycopg.errors.UniqueViolation as e:
+        except UniqueViolation as e:
             raise e
 
     def deleteAll(self):
