@@ -1,3 +1,4 @@
+import os
 import unittest
 from unittest import mock
 
@@ -15,6 +16,7 @@ class TestBiobankService(unittest.TestCase):
         cls._postgresContainer.start()
         url = cls._postgresContainer.get_connection_url().split("+")[1].replace("psycopg2", "postgresql")
         Database.connectionUrl = url
+        BiobankService.dirPath = os.path.dirname(__file__) + "/dummy_files"
         cls._biobankService = BiobankService()
         cls._biobankRepository = BiobankRecordRepository()
 
