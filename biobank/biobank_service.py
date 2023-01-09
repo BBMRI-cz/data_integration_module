@@ -1,3 +1,5 @@
+import os
+
 from psycopg import Cursor
 
 from database.biobank_record_repository import BiobankRecordRepository
@@ -11,7 +13,7 @@ class BiobankService:
 
     def __init__(self):
         self._biobankRecordRepository = BiobankRecordRepository()
-        self._fileParser = FileParser("/home/tomasik/Projects/Data-Integration-Module/tests/dummy_files")
+        self._fileParser = FileParser(os.path.dirname(__file__) + "/../tests/dummy_files")
 
     def saveFilesIntoDBInJson(self) -> Cursor:
         for record in self._fileParser.parseXMLFilesInDir():
