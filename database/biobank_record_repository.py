@@ -12,7 +12,7 @@ class BiobankRecordRepository:
         self._db = Database()
 
     def getAll(self):
-        self._db.query("SELECT * FROM public.biobank_record")
+        return self._db.query("SELECT * FROM biobank_record")
 
     def insert(self, biobank_record_dto: BiobankRecordDTO):
         try:

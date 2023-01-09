@@ -16,7 +16,7 @@ biobankRecord = BiobankRecordDTO(
 )
 
 
-class MyTestCase(unittest.TestCase):
+class TestBiobankRecordRepository(unittest.TestCase):
     @classmethod
     def setUpClass(cls) -> None:
         cls._postgresContainer = PostgresContainer("postgres:14", dbname="biobank")
@@ -39,10 +39,11 @@ class MyTestCase(unittest.TestCase):
         self.assertRaises(UniqueViolation, lambda: self._biobankRecordRepository.insert(biobankRecord))
 
     def test_getAllOnEmptyTable(self):
-        self.assertEquals(self._biobankRecordRepository.getAll(), None)
+        self.assertEquals(self._biobankRecordRepository.getAll(), [])
 
     def test_getAllWithOneRow(self):
-        pass
+        self._biobankRecordRepository.insert(biobankRecord)
+        self.assertEquals(len(self._biobankRecordRepository.getAll()), 1)
 
     @classmethod
     def tearDownClass(cls) -> None:

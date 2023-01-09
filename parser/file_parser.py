@@ -16,6 +16,7 @@ def isValidFileType(dir_entry):
 
 
 class FileParser:
+
     def __init__(self, dir_path):
         self.dir_path = dir_path
         log.info("Initializing FileParser with directory: {dir}".format(dir=dir_path))
@@ -29,7 +30,7 @@ class FileParser:
                  .format(numOfFiles=count, directory=self.dir_path))
         return count > 0
 
-    def parseXMLFilesInDir(self) -> [BiobankRecordDTO]:
+    def parseXMLFilesInDir(self) -> list[BiobankRecordDTO]:
         for dirEntry in os.scandir(self.dir_path):
             if isValidFileType(dirEntry):
                 fileCreationTimestamp = datetime.datetime.fromtimestamp(os.path.getctime(dirEntry))
