@@ -35,7 +35,6 @@ class FileParser:
                     fileCreationTimestamp = datetime.datetime.fromtimestamp(os.path.getctime(dirEntry))
                     with open(dirEntry) as xml_file:
                         log.debug("Parsing file: {fileName}".format(fileName=dirEntry.name))
-                        log.info(log.name)
                         try:
                             yield BiobankRecordDTO(
                                 dirEntry.name.split(".")[0],
