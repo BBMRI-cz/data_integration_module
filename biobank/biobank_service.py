@@ -10,8 +10,8 @@ log = getCustomLogger(__name__)
 class BiobankService:
     dirPath = None
 
-    def __init__(self):
-        self._biobankRecordRepository = BiobankRecordRepository()
+    def __init__(self, biobank_repository: BiobankRecordRepository):
+        self._biobankRecordRepository = biobank_repository
         self._fileParser = FileParser(dir_path=self.dirPath)
 
     def saveFilesIntoDBInJson(self) -> Cursor:

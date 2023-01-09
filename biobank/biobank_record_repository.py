@@ -8,8 +8,8 @@ from database.database import Database
 
 class BiobankRecordRepository:
 
-    def __init__(self):
-        self._db = Database()
+    def __init__(self, database: Database):
+        self._db = database
 
     def getAll(self):
         return self._db.query("SELECT * FROM biobank_record")
