@@ -3,8 +3,8 @@ import unittest
 
 from testcontainers.postgres import PostgresContainer
 
-from biobank.biobank_service import BiobankService
 from biobank.biobank_record_repository import BiobankRecordRepository
+from biobank.biobank_service import BiobankService
 from database.database import Database
 
 

@@ -4,14 +4,14 @@ from pyexpat import ExpatError
 
 import xmltodict
 
-from util.logger import CustomLogger
 from biobank.biobank_record_dto import BiobankRecordDTO
+from util.logger import getCustomLogger
 
-log = CustomLogger(__name__)
+log = getCustomLogger(__name__)
 
 
 def isValidFileType(dir_entry):
-    return dir_entry.is_file() and dir_entry.name.endswith(".xml")
+    return dir_entry.is_file() and dir_entry.name.endswith(".xml" or ".XML")
 
 
 class FileParser:
@@ -25,21 +25,24 @@ class FileParser:
         for path in os.scandir(self.dir_path):
             if isValidFileType(path):
                 count += 1
-        log.info("Found {numOfFiles} valid files in {directory}"
-                 .format(numOfFiles=count, directory=self.dir_path))
+        log.info("Found {numOfFiles} valid files in {directory}".format(numOfFiles=count, directory=self.dir_path))
         return count > 0
 
     def parseXMLFilesInDir(self) -> list[BiobankRecordDTO]:
-        for dirEntry in os.scandir(self.dir_path):
-            if isValidFileType(dirEntry):
-                fileCreationTimestamp = datetime.datetime.fromtimestamp(os.path.getctime(dirEntry))
-                with open(dirEntry) as xml_file:
-                    log.debug("Parsing file: {fileName}".format(fileName=dirEntry.name))
-                    try:
-                        yield BiobankRecordDTO(
-                            dirEntry.name.split(".")[0],
-                            xmltodict.parse(xml_file.read()),
-                            fileCreationTimestamp
-                        )
-                    except ExpatError:
-                        log.warning("File: {fileName} is empty or has wrong format".format(fileName=dirEntry.name))
+        if self.foundValidFiles():
+            for dirEntry in os.scandir(self.dir_path):
+                if isValidFileType(dirEntry):
+                    fileCreationTimestamp = datetime.datetime.fromtimestamp(os.path.getctime(dirEntry))
+                    with open(dirEntry) as xml_file:
+                        log.debug("Parsing file: {fileName}".format(fileName=dirEntry.name))
+                        log.info(log.name)
+                        try:
+                            yield BiobankRecordDTO(
+                                dirEntry.name.split(".")[0],
+                                xmltodict.parse(xml_file.read()),
+                                fileCreationTimestamp
+                            )
+                        except ExpatError:
+                            log.warning("File: {fileName} is empty or has wrong format".format(fileName=dirEntry.name))
+        else:
+            log.info("Found no valid files")

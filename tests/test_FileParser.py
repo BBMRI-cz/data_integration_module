@@ -1,28 +1,50 @@
 import datetime
+import logging
 import os
 import unittest
 from datetime import datetime
 
-from util.logger import CustomLogger
+import pytest
+
 from biobank.biobank_record_dto import BiobankRecordDTO
 from parser.file_parser import FileParser
+from util.logger import getCustomLogger
 
-
-log = CustomLogger(__name__)
+log = getCustomLogger(__name__)
 
 
 class FileParserTestCase(unittest.TestCase):
 
     @classmethod
     def setUpClass(cls) -> None:
+        cls._fileParser = None
+
+    @pytest.fixture(autouse=True)
+    def runBeforeAndAfterEachTest(self):
         dir_path = os.path.dirname(__file__) + "/dummy_files"
-        cls._fileParser = FileParser(dir_path)
+        self._fileParser = FileParser(dir_path=dir_path)
+        # Execute test
+        yield
+        self._fileParser = None
 
     def test_ClassInit(self):
         self.assertIsInstance(self._fileParser, FileParser)
 
-    def test_FoundFiles(self):
+    def test_FoundFilesInDummyDataDir(self):
         self.assertTrue(self._fileParser.foundValidFiles())
+
+    def test_FoundNoFilesInEmptyDir(self):
+        emptyDirPath = os.path.dirname(__file__) + "/dummy_files/empty_dir"
+        self._fileParser = FileParser(emptyDirPath)
+        self.assertFalse(self._fileParser.foundValidFiles())
+
+    def test_logOnParsingEmptyDir(self):
+        emptyDirPath = os.path.dirname(__file__) + "/dummy_files/empty_dir"
+        self._fileParser = FileParser(emptyDirPath)
+        with self.assertLogs(logging.getLogger(), level='INFO') as cm:
+            for _ in self._fileParser.parseXMLFilesInDir():
+                pass
+            self.assertIn('Found no valid files', cm.output[1])
 
     def test_ParseXMLFiles(self):
         for biobankRecord in self._fileParser.parseXMLFilesInDir():

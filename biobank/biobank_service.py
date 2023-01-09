@@ -2,9 +2,9 @@ from psycopg import Cursor
 
 from biobank.biobank_record_repository import BiobankRecordRepository
 from parser.file_parser import FileParser
-from util.logger import CustomLogger
+from util.logger import getCustomLogger
 
-log = CustomLogger(__name__)
+log = getCustomLogger(__name__)
 
 
 class BiobankService:
