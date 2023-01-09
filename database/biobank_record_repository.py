@@ -18,7 +18,6 @@ class BiobankRecordRepository:
         try:
             return self._db.execute(insert_record, (biobank_record_dto.id,
                                                     json.dumps(biobank_record_dto.record),
-                                                    biobank_record_dto.bims_export_time,
                                                     biobank_record_dto.bims_export_time))
         except UniqueViolation as e:
             raise e
@@ -27,5 +26,5 @@ class BiobankRecordRepository:
         self._db.execute(delete_all_rows)
 
 
-insert_record = "INSERT INTO public.biobank_record VALUES (%s, %s, %s, %s);"
+insert_record = "INSERT INTO public.biobank_record VALUES (%s, %s, %s);"
 delete_all_rows = 'DELETE FROM biobank_record'

@@ -4,6 +4,5 @@ create table public.biobank_record
         constraint biobank_record_pk
             primary key,
     record        json not null,
-    creation_time timestamp,
-    modified_time timestamp
+    creation_time timestamp
 );
