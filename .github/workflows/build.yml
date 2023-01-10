@@ -67,7 +67,7 @@ jobs:
         with:
           images: |
             bbmricz/dim
-            ghcr.io/${{ github.repository_owner }}/Data-Integration-Module
+            ghcr.io/${{ github.repository_owner }}/dim
           tags: |
             type=schedule
             type=ref,event=branch
