@@ -34,49 +34,13 @@ jobs:
         run: pytest
 
 
-  build-docker-image:
+  build-push-image:
     needs: [unit-tests]
-    runs-on: ubuntu-latest
-
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v3
-
-      - name: Set up QEMU
-        uses: docker/setup-qemu-action@v2
-
-      - name: Set up Docker Buildx
-        uses: docker/setup-buildx-action@v2
-
-      - name: Build and push Docker image
-        uses: docker/build-push-action@v3
-        with:
-          context: .
-          tags: dim:latest
-          outputs: type=docker,dest=/tmp/dim.tar
-
-      - name: Upload image
-        uses: actions/upload-artifact@v3
-        with:
-          name: dim-image
-          path: /tmp/dim.tar
-
-  push-image:
-    needs: [build-docker-image]
     runs-on: ubuntu-latest
 
     steps:
       - name: Check out Git repository
         uses: actions/checkout@v3
-
-      - name: Download Image
-        uses: actions/download-artifact@v3
-        with:
-          name: dim-image
-          path: /tmp
-
-      - name: Load Image
-        run: docker load --input /tmp/dim.tar
 
       - name: Set up QEMU
         uses: docker/setup-qemu-action@v2
@@ -103,7 +67,7 @@ jobs:
         with:
           images: |
             bbmricz/dim
-            ghcr.io/bbmricz/Data-Integration-Module
+            ghcr.io/${{ github.repository_owner }}/Data-Integration-Module
           tags: |
             type=schedule
             type=ref,event=branch
