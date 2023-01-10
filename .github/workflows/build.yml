@@ -103,7 +103,7 @@ jobs:
         with:
           images: |
             bbmricz/dim
-            ghcr.io/bbmricz/dim
+            ghcr.io/bbmricz/Data-Integration-Module
           tags: |
             type=schedule
             type=ref,event=branch
