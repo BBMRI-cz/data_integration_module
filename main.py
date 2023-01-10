@@ -9,5 +9,5 @@ if __name__ == '__main__':
     db = Database(os.getenv("DB_URL"))
     biobankRepository = BiobankRecordRepository(db)
     biobankService = BiobankService(biobankRepository)
-    file_parser = FileParser(os.getenv("RECORDS_DIR"))
+    file_parser = FileParser("/opt/dim/records")
     biobankService.saveFilesContentIntoDBInJson(file_parser)

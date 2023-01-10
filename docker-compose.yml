@@ -1,0 +1,40 @@
+version: '3.8'
+services:
+
+  dim:
+    container_name: "dim"
+    image: "ghcr.io/bbmri-cz/dim"
+    networks:
+      - "dim"
+    environment:
+      DB_URL: "postgresql://dim-db:5432/dim?user=dim&password=dim"
+    depends_on:
+      - dim-db
+    volumes:
+      - type: bind
+        source: ./tests/dummy_files
+        target: /opt/dim/records
+
+  dim-db:
+    container_name: "dim-db"
+    image: "postgres:15"
+    environment:
+      POSTGRES_USER: "dim"
+      POSTGRES_PASSWORD: "dim"
+      POSTGRES_DB: "dim"
+    networks:
+      - "dim"
+    volumes:
+      - "dim-db-data:/var/lib/postgresql/data"
+    restart: "always"
+    logging:
+      options:
+        max-size: "10m"
+        max-file: "3"
+networks:
+  dim:
+    driver: "bridge"
+
+volumes:
+  dim-db-data:
+    name: "dim-db-data"
