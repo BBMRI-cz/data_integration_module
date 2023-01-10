@@ -1,7 +1,9 @@
 import logging
 import os
+import time
 import unittest
 
+import schedule
 from testcontainers.postgres import PostgresContainer
 
 from biobank.biobank_record_repository import BiobankRecordRepository
@@ -11,7 +13,12 @@ from parser.file_parser import FileParser
 from tests.util_for_tests import parseTestContainerUrlForPsycopg
 
 
-class TestBiobankService(unittest.TestCase):
+class TestScheduler(unittest.TestCase):
+    testingList = []
+
+    def appendToList(self):
+        self.testingList.append(1)
+
     @classmethod
     def setUpClass(cls) -> None:
         cls._postgresContainer = PostgresContainer("postgres:14", dbname="biobank")
@@ -21,12 +28,19 @@ class TestBiobankService(unittest.TestCase):
         biobankRepository = BiobankRecordRepository(db)
         cls._biobankService = BiobankService(biobankRepository)
 
-    def test_saveFilesIntoDBInJson(self):
-        file_parser = FileParser(os.path.dirname(__file__) + "/../dummy_files")
-        with self.assertLogs(logging.getLogger(), level='INFO') as cm:
-            self._biobankService.saveFilesContentIntoDBInJson(file_parser)
-            self.assertIn('INSERT 0 1', cm.output[1])
-            self.assertIn('INSERT 0 1', cm.output[3])
+    def test_appendToListUntilNotEmpty(self):
+        schedule.every().second.do(self.appendToList)
+        while not self.testingList:
+            schedule.run_pending()
+            time.sleep(1)
+        self.assertEquals(self.testingList, [1])
+
+    def test_runSaveFileContentToDBOnce(self):
+        file_parser = FileParser(os.path.dirname(__file__) + "/dummy_files")
+        schedule.every().second.do(self._biobankService.saveFilesContentIntoDBInJson, file_parser=file_parser)
+        schedule.run_all()
+        self.assertTrue(self._biobankService.getAllRecords())
+
 
     @classmethod
     def tearDownClass(cls) -> None:

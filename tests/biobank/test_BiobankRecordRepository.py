@@ -1,4 +1,5 @@
 import datetime
+import logging
 import unittest
 
 import pytest
@@ -37,7 +38,9 @@ class TestBiobankRecordRepository(unittest.TestCase):
 
     def test_insertSameDTOTwiceRaisesError(self):
         self._biobankRecordRepository.insert(biobankRecord)
-        self.assertRaises(UniqueViolation, lambda: self._biobankRecordRepository.insert(biobankRecord))
+        with self.assertLogs(logging.getLogger(), level='WARNING') as cm:
+            self._biobankRecordRepository.insert(biobankRecord)
+            self.assertTrue(cm.output)
 
     def test_getAllOnEmptyTable(self):
         self.assertEquals(self._biobankRecordRepository.getAll(), [])

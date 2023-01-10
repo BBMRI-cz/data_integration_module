@@ -4,6 +4,9 @@ from psycopg.errors import UniqueViolation
 
 from biobank.biobank_record_dto import BiobankRecordDTO
 from database.database import Database
+from util.logger import getCustomLogger
+
+log = getCustomLogger(__name__)
 
 
 class BiobankRecordRepository:
@@ -19,8 +22,8 @@ class BiobankRecordRepository:
             return self._db.execute(insert_record, (biobank_record_dto.id,
                                                     json.dumps(biobank_record_dto.record),
                                                     biobank_record_dto.bims_export_time))
-        except UniqueViolation as e:
-            raise e
+        except UniqueViolation:
+            log.warning("Record with ID: {id} is already present in the database".format(id=biobank_record_dto.id))
 
     def deleteAll(self):
         self._db.execute(delete_all_rows)
