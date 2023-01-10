@@ -8,6 +8,7 @@ from testcontainers.postgres import PostgresContainer
 from biobank.biobank_record_dto import BiobankRecordDTO
 from biobank.biobank_record_repository import BiobankRecordRepository
 from database.database import Database
+from tests.util_for_tests import parseTestContainerUrlForPsycopg
 
 biobankRecord = BiobankRecordDTO(
     identifier="test1",
@@ -21,7 +22,7 @@ class TestBiobankRecordRepository(unittest.TestCase):
     def setUpClass(cls) -> None:
         cls._postgresContainer = PostgresContainer("postgres:14", dbname="biobank")
         cls._postgresContainer.start()
-        url = cls._postgresContainer.get_connection_url().split("+")[1].replace("psycopg2", "postgresql")
+        url = parseTestContainerUrlForPsycopg(cls._postgresContainer.get_connection_url())
         db = Database(url)
         cls._biobankRecordRepository = BiobankRecordRepository(db)
 

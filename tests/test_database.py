@@ -3,6 +3,7 @@ import unittest
 from testcontainers.postgres import PostgresContainer
 
 from database.database import Database
+from tests.util_for_tests import parseTestContainerUrlForPsycopg
 
 
 class DatabaseTests(unittest.TestCase):
@@ -11,7 +12,7 @@ class DatabaseTests(unittest.TestCase):
     def setUpClass(cls) -> None:
         cls._postgresContainer = PostgresContainer("postgres:14", dbname="biobank")
         cls._postgresContainer.start()
-        url = cls._postgresContainer.get_connection_url().split("+")[1].replace("psycopg2", "postgresql")
+        url = parseTestContainerUrlForPsycopg(cls._postgresContainer.get_connection_url())
         cls._db = Database(url)
 
     def test_ConnectionIsAlive(self):
