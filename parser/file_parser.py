@@ -17,20 +17,20 @@ def isValidFileType(dir_entry):
 class FileParser:
 
     def __init__(self, dir_path):
-        self.dir_path = dir_path
+        self._dir_path = dir_path
         log.info("Initializing FileParser with directory: {dir}".format(dir=dir_path))
 
     def foundValidFiles(self) -> bool:
         count = 0
-        for path in os.scandir(self.dir_path):
+        for path in os.scandir(self._dir_path):
             if isValidFileType(path):
                 count += 1
-        log.info("Found {numOfFiles} valid files in {directory}".format(numOfFiles=count, directory=self.dir_path))
+        log.info("Found {numOfFiles} valid files in {directory}".format(numOfFiles=count, directory=self._dir_path))
         return count > 0
 
     def parseXMLFilesInDir(self) -> list[BiobankRecordDTO]:
         if self.foundValidFiles():
-            for dirEntry in os.scandir(self.dir_path):
+            for dirEntry in os.scandir(self._dir_path):
                 if isValidFileType(dirEntry):
                     fileCreationTimestamp = datetime.datetime.fromtimestamp(os.path.getctime(dirEntry))
                     with open(dirEntry) as xml_file:
